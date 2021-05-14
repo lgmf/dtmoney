@@ -41,7 +41,7 @@ export const GlobalStyle = createGlobalStyle`
   input,
   textarea,
   button {
-    font-family: 'inherit';
+    font-family: inherit;
   }
 
   h1,
