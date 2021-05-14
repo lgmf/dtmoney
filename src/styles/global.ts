@@ -9,12 +9,13 @@ export const GlobalStyle = createGlobalStyle`
 
   :root {
     --background: #f0f2f5;
-    --red: #e52E4d;
-    --blue: #5429cc;
     --blue-light: #6933ff;
-    --text-title: #363f5f;
-    --text-body: #969cb3;
+    --blue: #5429cc;
+    --green: #33cc95;
+    --red: #e52E4d;
     --shape: #fff;
+    --text-body: #969cb3;
+    --text-title: #363f5f;
   }
 
   html {
