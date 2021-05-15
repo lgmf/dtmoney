@@ -16,6 +16,7 @@ export const GlobalStyle = createGlobalStyle`
     --shape: #fff;
     --text-body: #969cb3;
     --text-title: #363f5f;
+    --border: #d7d7d7;
   }
 
   html {
@@ -61,7 +62,7 @@ export const GlobalStyle = createGlobalStyle`
     height: 4rem;
     border-radius: 0.25rem;
     background: #e7e9ee;
-    border: 1px solid #d7d7d7;
+    border: 1px solid var(--border);
     font-size: 1rem;
 
     &::placeholder {
@@ -109,5 +110,9 @@ export const GlobalStyle = createGlobalStyle`
     padding: 3rem;
     position: relative;
     border-radius: 0.25rem;
+  }
+
+  .error-message {
+    color: var(--red);
   }
 `;
