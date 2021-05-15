@@ -55,6 +55,36 @@ export const GlobalStyle = createGlobalStyle`
     font-weight: 600;
   }
 
+  input {
+    width: 100%;
+    padding: 0 1.5rem;
+    height: 4rem;
+    border-radius: 0.25rem;
+    background: #e7e9ee;
+    border: 1px solid #d7d7d7;
+    font-size: 1rem;
+
+    &::placeholder {
+      color: var(--text-body)
+    }
+
+    & + input {
+      margin-top: 1rem;
+    }
+  }
+
+  button {
+    background-color: transparent;
+    border: 0;
+    border-radius: 0.25rem;
+    transition: filter 0.2s;
+    font-weight: 600;
+
+    &:hover {
+      filter: brightness(0.9);
+    }
+  }
+
   [disabled] {
     opacity: 0.6;
     cursor: not-allowed;

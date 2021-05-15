@@ -1,4 +1,5 @@
-import Modal from 'react-modal';
+import { Modal } from '../Modal';
+
 import { Form } from './styles';
 
 interface NewTransactionModalProps {
@@ -19,9 +20,9 @@ export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionMo
 
         <input placeholder="Título" />
 
-        <input 
-          type="number" 
-          placeholder="Valor" 
+        <input
+          type="number"
+          placeholder="Valor"
         />
 
         <input placeholder="Categoria" />
