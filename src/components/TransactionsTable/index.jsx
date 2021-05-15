@@ -1,6 +1,14 @@
+import { useEffect } from "react";
+
+import HttpClient from "../../http-client";
+
 import { Container } from "./styles";
 
 export function TransactionsTable() {
+  useEffect(() => {
+    HttpClient.get('/transactions').then(console.log)
+  }, []);
+
   return (
     <Container>
       <table>
