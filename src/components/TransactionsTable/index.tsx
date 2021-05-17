@@ -1,31 +1,15 @@
-import { useEffect, useState } from "react";
-
-import HttpClient from "../../http-client";
-
+import { useTransactions } from "../../TransactionContext";
 import { Container } from "./styles";
 
-const currencyFormatter =  new Intl.NumberFormat('pt-BR', {
+const currencyFormatter = new Intl.NumberFormat('pt-BR', {
   style: 'currency',
   currency: 'BRL'
-})
+});
 
-const dateFormatter =  new Intl.DateTimeFormat('pt-BR')
+const dateFormatter = new Intl.DateTimeFormat('pt-BR');
 
 export function TransactionsTable() {
-  const [status, setStatus] = useState('');
-  const [transactions, setTransactions] = useState([]);
-
-  useEffect(() => {
-    setStatus('pending');
-
-    HttpClient
-      .get('/transactions')
-      .then((response) => {
-        setTransactions(response.data.transactions);
-        setStatus('fulfilled');
-      })
-      .catch(() => setStatus('rejected'));
-  }, []);
+  const { status, transactions } = useTransactions();
 
   function renderRows() {
     if (status === 'rejected') {

@@ -1,30 +1,19 @@
 import { FormEvent, useState } from 'react';
 import { lighten } from 'polished';
 
-import { Modal } from '../Modal';
+import { TransactionForm, TransactionType } from '../../models/Transaction';
 
 import income from '../../assets/income.svg';
 import outcome from '../../assets/outcome.svg';
 
+import { Modal } from '../Modal';
+
 import { Form, TransactionTypeContainer, RadioBox } from './styles';
-import HttpClient from '../../http-client';
+import { useTransactions } from '../../TransactionContext';
 
 interface NewTransactionModalProps {
   isOpen: boolean;
   onRequestClose: () => void;
-}
-
-enum TransactionType {
-  Income = 'income',
-  Outcome = 'outcome',
-}
-
-interface Transaction {
-  title: string;
-  amount: number;
-  type: TransactionType;
-  category: string;
-  createdAt: Date;
 }
 
 export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionModalProps) {
@@ -33,18 +22,28 @@ export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionMo
   const [type, setType] = useState<TransactionType>(TransactionType.Income);
   const [category, setCategory] = useState('');
 
-  function handleCreateNewTransaction(event: FormEvent) {
+  const { createTransaction } = useTransactions();
+
+  async function handleCreateNewTransaction(event: FormEvent) {
     event.preventDefault();
 
-    const newTransaction: Transaction = {
+    const newTransaction: TransactionForm = {
       title,
       amount,
       type,
       category,
-      createdAt: new Date(),
     };
 
-    HttpClient.post('/transactions', newTransaction);
+    try {
+      await createTransaction(newTransaction);
+      onRequestClose();
+      setTitle('');
+      setAmount(0);
+      setType(TransactionType.Income);
+      setCategory('');
+    } catch (error) {
+      console.log(error); 
+    }
   }
 
   return (
@@ -57,10 +56,11 @@ export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionMo
       <Form onSubmit={handleCreateNewTransaction}>
         <h2>Cadastrar transação</h2>
 
-        <input 
+        <input
           placeholder="Título"
           value={title}
           onChange={(event) => setTitle(event.target.value)}
+          autoFocus
         />
 
         <input
@@ -102,7 +102,7 @@ export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionMo
           </RadioBox>
         </TransactionTypeContainer>
 
-        <input 
+        <input
           placeholder="Categoria"
           value={category}
           onChange={(event) => setCategory(event.target.value)}
