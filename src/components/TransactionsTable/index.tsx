@@ -1,12 +1,6 @@
 import { useTransactions } from "../../TransactionContext";
+import { currencyFormatter, dateFormatter } from "../../utils";
 import { Container } from "./styles";
-
-const currencyFormatter = new Intl.NumberFormat('pt-BR', {
-  style: 'currency',
-  currency: 'BRL'
-});
-
-const dateFormatter = new Intl.DateTimeFormat('pt-BR');
 
 export function TransactionsTable() {
   const { status, transactions } = useTransactions();
