@@ -8,8 +8,9 @@ import {
   useState
 } from "react";
 
-import HttpClient from "./http-client";
-import { Transaction, TransactionForm } from "./models";
+import HttpClient from "../http-client";
+
+import { Transaction, TransactionForm } from "../models";
 
 interface TransactionsProviderProps {
   children: ReactNode;
@@ -29,10 +30,6 @@ const initialValue: TransactionsContextValue = {
 
 const TransactionsContext = createContext<TransactionsContextValue>(initialValue);
 
-export function useTransactions() {
-  return useContext(TransactionsContext);
-}
-
 export function TransactionsProvider({ children }: TransactionsProviderProps) {
   const [status, setStatus] = useState(initialValue.status);
   const [transactions, setTransactions] = useState<Transaction[]>(initialValue.transactions);
@@ -40,7 +37,7 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
   const createTransaction = useCallback((transactionForm: TransactionForm) => {
     return HttpClient
       .post('/transactions', transactionForm)
-      .then((response) => {
+      .then((response: AxiosResponse) => {
         const { transaction } = response.data;
         setTransactions((prev) => ([
           ...prev,
@@ -55,7 +52,7 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
 
     HttpClient
       .get('/transactions')
-      .then((response) => {
+      .then((response: AxiosResponse) => {
         setTransactions(response.data.transactions);
         setStatus('fulfilled');
       })
@@ -73,4 +70,8 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
       {children}
     </TransactionsContext.Provider>
   )
+}
+
+export function useTransactions() {
+  return useContext(TransactionsContext);
 }

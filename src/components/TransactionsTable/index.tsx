@@ -1,5 +1,7 @@
-import { useTransactions } from "../../TransactionContext";
+import { useTransactions } from '../../hooks/useTransactions';
+
 import { currencyFormatter, dateFormatter } from "../../utils";
+
 import { Container } from "./styles";
 
 export function TransactionsTable() {

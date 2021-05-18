@@ -9,7 +9,7 @@ import outcome from '../../assets/outcome.svg';
 import { Modal } from '../Modal';
 
 import { Form, TransactionTypeContainer, RadioBox } from './styles';
-import { useTransactions } from '../../TransactionContext';
+import { useTransactions } from '../../hooks/useTransactions';
 
 interface NewTransactionModalProps {
   isOpen: boolean;

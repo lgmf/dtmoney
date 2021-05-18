@@ -3,7 +3,7 @@ import outcomeImg from '../../assets/outcome.svg';
 import totalImg from '../../assets/total.svg';
 import { TransactionType } from '../../models';
 
-import { useTransactions } from '../../TransactionContext';
+import { useTransactions } from '../../hooks/useTransactions';
 import { currencyFormatter } from '../../utils';
 
 import { Container } from "./styles";
